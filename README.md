@@ -4,6 +4,8 @@ This is an ES6 re-implementation of [jQuery-menu-aim](https://github.com/kamens/
 
 Additional bonus is that, this one doesn't use jQuery ... in fact it has no dependencies.
 
+# [Demo of a plugin](https://dev.artmizu.ru)
+
 Here's an example (a more detailed example can be found at the end of this document):
 
 ```javascript

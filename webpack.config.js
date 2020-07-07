@@ -22,7 +22,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.json']
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 
   module: {
     rules: [
