@@ -10,7 +10,8 @@
     "dev": "webpack --verbose --watch",
     "tsc": "tsc --project tsconfig.doc.json",
     "doc": "npm run clean && npm run tsc && jsdoc2md --template ./README.hbs ./dist/es6-menu-aim.js > README.md",
-    "deploy2npm": "npm run doc && npm run prod && npm publish"
+    "deploy2npm": "npm run doc && npm run prod && npm publish",
+    "demo": "rsync -azP --delete --chmod=u+rwx,Fo+r,Do+rx $PWD/dist/ artmizu@185.213.208.145:/home/artmizu/ftp/www/dev.artmizu.ru"
   },
   "repository": {
     "type": "git",
