@@ -10,7 +10,7 @@ declare enum MenuDirection {
     left = "left",
     right = "right",
     below = "below",
-    above = "above",
+    above = "above"
 }
 declare type EventHandler = (data: any, target?: any) => any;
 declare type Options = {

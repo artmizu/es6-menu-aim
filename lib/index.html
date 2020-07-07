@@ -1,0 +1,262 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+      }
+
+      body {
+        padding: 50px 100px 120px;
+        color:#fff;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 400;
+        font-family: 'Fira Code', monospace;
+        background-color: #141414;
+      }
+
+      .h1 {
+        margin-bottom: 21px;
+        font-size: 43px;
+        line-height: 48px;
+        font-weight: 500;
+      }
+
+      .p {
+        font-size: 14px;
+        line-height: 26px;
+      }
+
+      .highlighted {
+        background-color: #ffffff;
+        color: #000;
+      }
+
+      .link {
+        text-decoration:none;
+        color:#06FF9E;
+      }
+
+      .demo {
+        width: 310px;
+      }
+
+      .text-block {
+        
+      }
+
+      .demo-block {
+        margin-top: 40px;
+      }
+
+      .demo-block__title {
+        margin-bottom: 14px;
+        font-size: 14px;
+        line-height: 26px;
+      }
+
+      .list__el {
+        color:#131415;
+        font-size: 15px;
+        line-height: 17px;
+        border-bottom: 1px solid #131415;
+        background-color: #06FF9E;
+        position: relative;
+      }
+
+      .list__text {
+        padding: 18px 15px 15px 15px;
+      }
+
+      .list__hidden-list {
+        width: 310px;
+      }
+
+      .list__el > .list__hidden-list {
+        padding-left: 2px;
+        display: none;
+        position: absolute;
+        left:310px;
+        top:0;
+      }
+
+      .list__el_active > .list__hidden-list {
+        display: block;
+      }
+
+      .list__el_nested > .list__text {
+        padding-right: 30px;
+      }
+
+      .list__el_nested > .list__text:after {
+        content:'';
+        width: 8px;
+        height: 14px;
+        margin-right: -15px;
+        background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iOHB4IiBoZWlnaHQ9IjE0cHgiIHZpZXdCb3g9IjAgMCA4IDE0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPHRpdGxlPlBhdGg8L3RpdGxlPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkFydGJvYXJkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzgyLjAwMDAwMCwgLTQyNS4wMDAwMDApIiBmaWxsPSIjMDAwMDAwIj4KICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk3LjAwMDAwMCwgNDA3LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTI4NS4yNTYsMjQuMzcxMjU3NSBMMjkxLjQ4NTMzMywxOC4yNTE0OTcgQzI5MS44NDgsMTcuOTE2MTY3NyAyOTIuNDAyNjY3LDE3LjkxNjE2NzcgMjkyLjc0NCwxOC4yNTE0OTcgQzI5My4wODUzMzMsMTguNTg2ODI2MyAyOTMuMDg1MzMzLDE5LjEzMTczNjUgMjkyLjc0NCwxOS40ODgwMjQgTDI4Ny4xMzMzMzMsMjUgTDI5Mi43NDQsMzAuNTExOTc2IEMyOTMuMDg1MzMzLDMwLjg0NzMwNTQgMjkzLjA4NTMzMywzMS40MTMxNzM3IDI5Mi43NDQsMzEuNzQ4NTAzIEMyOTIuNDAyNjY3LDMyLjA4MzgzMjMgMjkxLjg0OCwzMi4wODM4MzIzIDI5MS40ODUzMzMsMzEuNzQ4NTAzIEwyODUuMjU2LDI1LjYwNzc4NDQgQzI4NC45MTQ2NjcsMjUuMjcyNDU1MSAyODQuOTE0NjY3LDI0LjcyNzU0NDkgMjg1LjI1NiwyNC4zNzEyNTc1IFoiIGlkPSJQYXRoIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyODkuMDAwMDAwLCAyNS4wMDAwMDApIHNjYWxlKC0xLCAxKSB0cmFuc2xhdGUoLTI4OS4wMDAwMDAsIC0yNS4wMDAwMDApICI+PC9wYXRoPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=");
+        background-size: auto 14px;
+        display:block;
+        float:right;
+      }
+
+      .list__el:first-child {
+        border-radius:5px 5px 0 0;
+      }
+
+      .list__el:last-child {
+        border-radius:0 0 5px 5px;
+        border-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo">
+      <div class="text-block">
+        <h1 class="h1">Demo of a <a class="link" href="https://www.npmjs.com/package/es6-menu-aim">es6-menu-aim</a></h1>
+        <div class="description">
+          <div class="p">
+            This is an ES6 re-implementation of <a href="https://github.com/kamens/jQuery-menu-aim" class="link">jQuery-menu-aim</a> by <a href="https://github.com/kamens" class="link">Ben Kamens</a> - it has been written so that it can be used/imported as a regular ES6 module (see the example below).
+          </div>
+          <div class="p">
+            Additional bonus is that, <span class="highlighted">this one doesn't use jQuery ... in fact it has no dependencies</span>.
+          </div>
+        </div>
+      </div>
+      <div class="demo-block">
+        <div class="demo-block__title">Try to hover over the menu and move it between elements:</div>
+        <div class="list">
+          <div class="list__el list__el_nested">
+            <div class="list__text">Physicists</div>
+            <div class="list__hidden-list">
+              <div class="list__el">
+                <div class="list__text">Galileo Galilei</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Isaac Newton</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Michael Faraday</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">James Clerk Maxwell</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Wilhelm Röntgen</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Marie Curie</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">J. J. Thomson</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Max Planck</div>
+              </div>
+            </div>
+          </div>
+          <div class="list__el list__el_nested">
+            <div class="list__text">Mathematicians</div>
+            <div class="list__hidden-list">
+              <div class="list__el">
+                <div class="list__text">Euclid</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Archimedes</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Muhammad ibn Musa al-Khwarizmi</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">John Napier</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Johannes Kepler</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Rene Descartes</div>
+              </div>
+            </div>
+          </div>
+          <div class="list__el list__el_nested">
+            <div class="list__text">Biologists</div>
+            <div class="list__hidden-list">
+              <div class="list__el">
+                <div class="list__text">Oswald Avery</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">James Black</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Elizabeth Blackwell</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Linda Buck</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Santiago Ramón y Cajal</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Rachel Carson</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Erwin Chargaff</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Francis Crick</div>
+              </div>
+            </div>
+          </div>
+          <div class="list__el list__el_nested">
+            <div class="list__text">Chemists</div>
+            <div class="list__hidden-list">
+              <div class="list__el">
+                <div class="list__text">Antoine Lavoisier</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">John Dalton</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Amedeo Avogadro</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Jöns Jacob Berzelius</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Dmitri Mendeleev</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Robert Bunsen</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Alfred Nobel</div>
+              </div>
+            </div>
+          </div>
+          <div class="list__el list__el_nested">
+            <div class="list__text">Historians</div>
+            <div class="list__hidden-list">
+              <div class="list__el">
+                <div class="list__text">Gordon Wood</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Ken Burns</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Michael Beschloss</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Ron Chernow</div>
+              </div>
+              <div class="list__el">
+                <div class="list__text">Erik Larson</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

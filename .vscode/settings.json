@@ -1,4 +1,9 @@
 {
     // don't want Ctrl+P to search within folders defined in .gitignore
     "search.useIgnoreFiles": true,
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "eslint.format.enable": true,
 }

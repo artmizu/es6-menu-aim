@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { Coordinates, EventHandler, Options } from './es6-menu-aim-types';
 /**
  * Main class of MenuAim
@@ -5,10 +6,11 @@ import { Coordinates, EventHandler, Options } from './es6-menu-aim-types';
 declare class MenuAim {
     activeRow: HTMLElement;
     lastDelayLoc: Coordinates;
-    timeoutId: number;
-    exitTimeoutID: number;
+    timeoutId: NodeJS.Timeout;
+    exitTimeoutID: NodeJS.Timeout;
     options: Options;
     menu: HTMLElement;
+    nestedElementArr: HTMLElement[];
     /**
      * Constructor function
      * @param menu root menu HTML element
@@ -18,7 +20,7 @@ declare class MenuAim {
     /**
      * This method is called initially and each time a menu is re-activated
      */
-    attach: (menu: HTMLElement) => void;
+    attach(menu: HTMLElement): void;
     /**
      * Cancel possible row activations when leaving the menu entirely
      * @param ev Mouse Event

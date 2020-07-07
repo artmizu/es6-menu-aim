@@ -13,14 +13,13 @@ let _mouseLocs:Array<Coordinates> = [],
  * Main class of MenuAim
  */
 class MenuAim {
-
     activeRow:HTMLElement = null;
-
     lastDelayLoc:Coordinates = null;
-    timeoutId:number = null;
-    exitTimeoutID:number = null;
+    timeoutId:NodeJS.Timeout = null;
+    exitTimeoutID:NodeJS.Timeout = null;
     options:Options = null;
     menu:HTMLElement = null;
+    nestedElementArr:HTMLElement[] = [];
 
     /**
      * Constructor function
@@ -38,19 +37,19 @@ class MenuAim {
 
         // setting the default values
         this.options = {
-                rowSelector: opts.rowSelector || "> li",
-                exitDelay: opts.exitDelay || null,
-                submenuSelector: opts.submenuSelector || "*",
-                submenuDirection: opts.submenuDirection || MenuDirection.right,
-                tolerance: opts.tolerance || 75,
-                isRoot: opts.isRoot || true,
-                enter: opts.enter || noop,
-                exit: opts.exit || noop,
-                activate: opts.activate || noop,
-                deactivate: opts.deactivate || noop,
-                exitMenu: opts.exitMenu || noop,
-                clickRow: opts.clickRow || noop
-            };
+            rowSelector: opts.rowSelector || "> li",
+            exitDelay: opts.exitDelay || null,
+            submenuSelector: opts.submenuSelector || "*",
+            submenuDirection: opts.submenuDirection || MenuDirection.right,
+            tolerance: opts.tolerance || 75,
+            isRoot: opts.isRoot || true,
+            enter: opts.enter || noop,
+            exit: opts.exit || noop,
+            activate: opts.activate || noop,
+            deactivate: opts.deactivate || noop,
+            exitMenu: opts.exitMenu || noop,
+            clickRow: opts.clickRow || noop
+        };
 
         // binding event handlers
         this.mouseenterRow = this.mouseenterRow.bind(this);
@@ -66,9 +65,15 @@ class MenuAim {
     /**
      * This method is called initially and each time a menu is re-activated
      */
-    attach = function(menu:HTMLElement):void {
+    attach(menu:HTMLElement):void {
 
         this.menu = menu;
+
+        // attach event listener to rows
+        this.nestedElementArr = Array.from(this.menu.parentNode.querySelectorAll(`.${this.menu.classList[0]} ${this.options.rowSelector}`));
+        this.nestedElementArr.forEach((el: HTMLElement) => {
+            el.addEventListener('mousemove', this.mouseenterRow);
+        })
 
         if(this.options.isRoot) {
         // only the ROOT instance should be registering the `menuExit`
@@ -90,7 +95,7 @@ class MenuAim {
     mouseleaveMenu(ev:Event):void {
 
         if (this.timeoutId) {
-            window.clearTimeout(this.timeoutId);
+            clearTimeout(this.timeoutId);
             this.timeoutId = null;
         }
 
@@ -99,11 +104,11 @@ class MenuAim {
             if(this.exitTimeoutID) {
             // IF the scheduling timer already exists -> clear it
 
-                window.clearTimeout(this.exitTimeoutID);
+                clearTimeout(this.exitTimeoutID);
                 this.exitTimeoutID = null;
             }
 
-            this.exitTimeoutID = window.setTimeout(this.commitExit, this.options.exitDelay);
+            this.exitTimeoutID = setTimeout(this.commitExit, this.options.exitDelay);
 
         } else {
             this.commitExit();
@@ -117,7 +122,7 @@ class MenuAim {
 
         // clear the exit timeout ... if it's set
         if(this.exitTimeoutID) {
-            window.clearTimeout(this.exitTimeoutID);
+            clearTimeout(this.exitTimeoutID);
         }
 
         this.commitExit();
@@ -149,7 +154,6 @@ class MenuAim {
     mouseenterRow(ev:MouseEvent):void {
 
         if(this.exitTimeoutID) {
-            // console.log('schedule Exit CLEAR');
             clearTimeout(this.exitTimeoutID);
             this.exitTimeoutID = null;
         }
@@ -343,6 +347,7 @@ class MenuAim {
      * items to be added externaly
      */
     hookUp(li:HTMLElement):void {
+        this.nestedElementArr.push(li);
         li.addEventListener('mouseenter', this.mouseenterRow);
         li.addEventListener('mouseleave', this.mouseleaveRow);
         li.addEventListener('click', this.clickRow);
@@ -401,6 +406,11 @@ class MenuAim {
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
+
+        // detach rows handlers
+        this.nestedElementArr.forEach((el:HTMLElement) => {
+            el.removeEventListener('mousemove', this.mouseenterRow);
+        })
 
         if(--_instanceCounter===0) {
         // IF this was the last existing instance of the class
@@ -471,4 +481,4 @@ const _offset = (elem:HTMLElement):ElementOffset => {
     });
 }
 
-export { Coordinates, EventHandler, Options, MenuAim };
+export { Coordinates, EventHandler, Options, MenuAim }; 
